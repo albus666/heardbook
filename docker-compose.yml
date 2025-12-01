@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    container_name: heardbook_app
+    ports:
+      - "3000:3000"
+    environment:
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+      - NODE_ENV=development
+    volumes:
+      # 挂载源代码，实现热更新（但排除 node_modules）
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped

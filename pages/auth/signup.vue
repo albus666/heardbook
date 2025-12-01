@@ -1,0 +1,623 @@
+<template>
+  <div class="auth-page">
+    <!-- Header -->
+    <div class="auth-header">
+      <div class="heri-container">
+        <div class="header-content">
+          <div class="header-left">
+            <nuxt-link to="/" class="logo">
+              <img src="@/static/img/head/logo3.png" alt="Logo" />
+            </nuxt-link>
+            <nuxt-link to="/" class="explore-link">Explore</nuxt-link>
+          </div>
+          <div class="header-right">
+            <button class="btn-trial">Start free trial</button>
+            <nuxt-link to="/auth/login" class="login-link">Log in</nuxt-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="auth-main">
+      <div class="signup-wrapper">
+        <h1 class="signup-title">Get unlimited access to the key ideas of<br>7,500+ non-fiction bestsellers</h1>
+        
+        <div class="signup-container">
+          <div class="signup-left">
+            <div class="auth-form">
+            <!-- Email Input -->
+            <div class="form-group">
+              <div class="form__field-container">
+                <input
+                    type="email"
+                    v-model="email"
+                    placeholder="Email address"
+                    class="form__input"
+                />
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group password-group">
+              <div class="form__field-container">
+                <input
+                    :type="showPassword ? 'text' : 'password'"
+                    v-model="password"
+                    placeholder="Create password"
+                    class="form__input"
+                />
+                <button class="password-toggle" @click="showPassword = !showPassword">
+                  {{ showPassword ? 'Hide' : 'Show' }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Create Account Button -->
+            <button class="button button--primary" @click="handleSignup">
+              Create account
+            </button>
+
+            <!-- Divider -->
+            <div class="divider">
+              <span>or</span>
+            </div>
+
+            <!-- Social Signup Buttons -->
+            <div class="social-buttons">
+              <button class="btn-social btn-facebook">
+                <svg class="icon" width="81" height="156" viewBox="0 0 81 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M52.584 155.139V84.378H76.326L79.888 56.793H52.584V39.184C52.584 31.2 54.792 25.759 66.254 25.759L80.849 25.753V1.08C78.325 0.752 69.661 0 59.577 0C38.52 0 24.104 12.853 24.104 36.452V56.793H0.290039V84.378H24.104V155.139H52.584Z" fill="white"/>
+                </svg>
+                Sign up with Facebook
+              </button>
+
+              <button class="btn-social btn-google">
+                <svg class="icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="40" height="40" rx="4" fill="white"/>
+                  <g clip-path="url(#clip0_2:10)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M28.64 20.205C28.64 19.566 28.583 18.953 28.476 18.364H20V21.845H24.844C24.7438 22.3956 24.5329 22.9202 24.2242 23.387C23.9155 23.8538 23.5154 24.2532 23.048 24.561V26.82H25.956C27.658 25.253 28.64 22.945 28.64 20.205Z" fill="#4285F4"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 29C22.43 29 24.467 28.194 25.956 26.82L23.048 24.561C22.242 25.101 21.211 25.421 20 25.421C17.656 25.421 15.672 23.837 14.964 21.71H11.957V24.042C12.706 25.5329 13.8549 26.7862 15.2753 27.6618C16.6956 28.5373 18.3315 29.0007 20 29V29Z" fill="#34A853"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.964 21.71C14.7787 21.1589 14.6835 20.5815 14.682 20C14.682 19.407 14.784 18.83 14.964 18.29V15.958H11.957C11.3271 17.2122 10.9993 18.5965 11 20C11 21.452 11.348 22.827 11.957 24.042L14.964 21.71Z" fill="#FBBC05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 14.58C21.321 14.58 22.508 15.034 23.44 15.925L26.022 13.345C24.463 11.891 22.426 11 20 11C18.3315 10.9993 16.6956 11.4627 15.2753 12.3382C13.8549 13.2138 12.706 14.4671 11.957 15.958L14.964 18.29C15.672 16.163 17.656 14.58 20 14.58Z" fill="#EA4335"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2:10">
+                      <rect width="18" height="18" fill="white" transform="translate(11 11)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                Sign up with Google
+              </button>
+
+              <button class="btn-social btn-sso">
+                Sign up with SSO
+              </button>
+            </div>
+
+            <!-- Terms Text -->
+            <p class="terms-text">
+              Start your learning journey! By submitting, you'll get exciting email updates about our products.
+              Unsubscribe anytime via the link or
+              <a href="mailto:support@heardly.com">support@heardly.com</a>.
+              Discover more about how we protect your data in our
+              <nuxt-link to="/privacy">Privacy Policy</nuxt-link>.
+              Our <nuxt-link to="/terms">Terms</nuxt-link> apply.
+            </p>
+
+            <!-- Already have account link -->
+            <div class="auth-links">
+              <nuxt-link to="/auth/login" class="link-primary">
+                Already have an account?
+              </nuxt-link>
+            </div>
+          </div>
+        </div>
+
+        <div class="signup-right">
+          <div class="illustration">
+            <img src="@/static/img/auth/girl.svg" alt="Learning illustration" />
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <heri-footer />
+  </div>
+</template>
+
+<script>
+import HeriFooter from '@/components/heri-footer.vue'
+
+export default {
+  components: {
+    HeriFooter
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+      showPassword: false
+    }
+  },
+  methods: {
+    handleSignup() {
+      // Signup logic here
+      console.log('Signup:', this.email, this.password)
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+@import '~/assets/css/common.less';
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.auth-header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .logo {
+    img {
+      height: 2.5rem;
+      width: auto;
+    }
+  }
+
+  .explore-link {
+    color: #0f2830;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: #0365f2;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-trial {
+    background: #03ce7c;
+    color: white;
+    border: none;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover {
+      background: #02b56d;
+    }
+  }
+
+  .login-link {
+    color: #0f2830;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1rem;
+
+    &:hover {
+      color: #0365f2;
+    }
+  }
+}
+
+.auth-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.signup-wrapper {
+  width: 100%;
+  max-width: 75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f2830;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  font-family: 'CeraPRO', sans-serif;
+  max-height: calc(2rem * 1.2 * 2);
+  overflow: visible;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.signup-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.signup-left {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.signup-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f2830;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  font-family: 'CeraPRO', sans-serif;
+  max-height: calc(2rem * 1.2 * 2);
+  overflow: visible;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+
+  &.password-group {
+    position: relative;
+  }
+}
+
+.form__field-container {
+  box-sizing: border-box;
+  width: 100%;
+  border: 2px solid #bac8ce;
+  border-radius: 0.25rem;
+  line-height: 1rem;
+  color: #042330;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  font-family: "CeraPRO", sans-serif;
+  user-select: text !important;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.password-group .form__field-container {
+  padding-right: 0;
+}
+
+.password-group .form__input {
+  padding-right: 4rem;
+}
+
+.form__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 10px 14px;
+  color: #042330;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "CeraPRO", sans-serif;
+  line-height: 20px;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  display: block;
+  cursor: text;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  user-select: text;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::placeholder {
+    color: #bac8ce;
+    font-weight: 400;
+  }
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  z-index: 1;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.button {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  font-family: "CeraPRO", sans-serif;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: .6875rem 1rem .8125rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: .25rem;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+
+  &.button--primary {
+    color: #03314b;
+    background-color: #2ce080;
+    border: #2ce080 .125rem solid;
+
+    &:hover {
+      background-color: #25c972;
+      border-color: #25c972;
+    }
+  }
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1rem 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: #d1d5db;
+  }
+
+  span {
+    position: relative;
+    background: #ffffff;
+    padding: 0 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.btn-social {
+  font-family: "CeraPRO", sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 2.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-decoration: none;
+  border: 0.125rem solid transparent;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: white;
+  flex-grow: 1;
+  padding: 0.6875rem 1rem;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  justify-content: center;
+  text-align: center;
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.btn-facebook {
+    background-color: #3A579D;
+    border-color: #3A579D;
+    position: relative;
+    padding: 0.6875rem 1rem;
+    justify-content: center;
+    text-align: center;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      height: 1.5rem;
+      width: auto;
+      transform: translateY(-50%);
+      box-sizing: inherit;
+      user-select: text !important;
+      margin-left: 0;
+    }
+
+    &:hover {
+      background-color: #2d4373;
+      border-color: #2d4373;
+    }
+  }
+
+  &.btn-google {
+    background-color: #4285F4;
+    border-color: #4285F4;
+    color: #ffffff;
+    position: relative;
+    padding: 0.6875rem 1rem;
+    justify-content: center;
+    text-align: center;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 0.0625rem;
+      height: 2.5rem;
+      width: 2.5rem;
+      transform: translateY(-50%);
+      box-sizing: inherit;
+      user-select: text !important;
+      margin-left: 0;
+    }
+
+    &:hover {
+      background-color: #357ae8;
+      border-color: #357ae8;
+    }
+  }
+
+  &.btn-sso {
+    background-color: #16423c;
+    border-color: #16423c;
+
+    &:hover {
+      background-color: #0f2e29;
+      border-color: #0f2e29;
+    }
+  }
+}
+
+.terms-text {
+  font-size: 0.75rem;
+  font-family: "CeraPRO", sans-serif;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  a {
+    color: #0365f2;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 0.5rem;
+
+  a {
+    text-decoration: none;
+    font-size: 1rem;
+
+    &.link-primary {
+      color: #0365f2;
+      font-weight: 500;
+      font-family: "CeraPRO", sans-serif;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.signup-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.illustration {
+  width: 100%;
+  max-width: 32rem;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .signup-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .signup-left {
+    max-width: 100%;
+  }
+
+  .signup-right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signup-title {
+    font-size: 1.5rem;
+  }
+
+  .header-left {
+    gap: 1rem !important;
+  }
+
+  .explore-link {
+    font-size: 0.875rem;
+  }
+
+  .auth-main {
+    padding: 2rem 1rem;
+  }
+}
+</style>
