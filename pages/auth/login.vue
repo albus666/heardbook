@@ -1,22 +1,7 @@
 <template>
   <div class="auth-page">
     <!-- Header -->
-    <div class="auth-header">
-      <div class="heri-container">
-        <div class="header-content">
-          <div class="header-left">
-            <nuxt-link to="/" class="logo">
-              <img src="@/static/img/head/logo3.png" alt="Logo" />
-            </nuxt-link>
-            <nuxt-link to="/" class="explore-link">Explore</nuxt-link>
-          </div>
-          <div class="header-right">
-            <button class="btn-trial">Start free trial</button>
-            <nuxt-link to="/auth/login" class="login-link">Log in</nuxt-link>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AppHeader />
 
     <!-- Main Content -->
     <div class="loginV2 active">
@@ -125,10 +110,12 @@
 
 <script>
 import HeriFooter from '@/components/heri-footer.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
 export default {
   components: {
-    HeriFooter
+    HeriFooter,
+    AppHeader
   },
   data() {
     return {
@@ -323,91 +310,7 @@ export default {
   background: #f5f9f7;
 }
 
-// Header 样式
-.auth-header {
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-
-  .heri-container {
-    width: 1184px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .logo img {
-    height: 2.5rem;
-    width: auto;
-  }
-
-  .explore-link {
-    color: #0f2830;
-    font-size: 1rem;
-    text-decoration: none;
-
-    &:hover {
-      color: @color-link;
-    }
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .btn-trial {
-    -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: transparent;
-    margin-left: 2rem;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1;
-    color: #03314b;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    padding: 0.6875rem 1rem 0.8125rem;
-    font-family: inherit;
-    text-align: center;
-    text-decoration: none;
-    background-color: #2ce080;
-    border: #2ce080 0.125rem solid;
-    border-radius: 0.25rem;
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    user-select: text !important;
-
-    &:hover {
-      background: @color-primary-hover;
-      border-color: @color-primary-hover;
-    }
-  }
-
-  .login-link {
-    color: #0f2830;
-    font-weight: 500;
-    text-decoration: none;
-
-    &:hover {
-      color: @color-link;
-    }
-  }
-}
+// Header 样式已移至 AppHeader 组件
 
 // Login 主体样式
 .loginV2 {
@@ -479,7 +382,7 @@ export default {
 .loginV2__input {
   width: 100%;
   height: 2.75rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   border: 0.125rem solid @color-border;
   border-radius: 0.125rem;
   font-size: 1rem;
@@ -684,14 +587,6 @@ export default {
 
   .loginV2__headline {
     font-size: 2rem;
-  }
-
-  .header-left {
-    gap: 1rem !important;
-  }
-
-  .explore-link {
-    font-size: 0.875rem;
   }
 
   .social-button--google {

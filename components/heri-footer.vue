@@ -217,10 +217,13 @@
 	.footer {
 		background: rgb(241, 246, 244);
 		line-height: 1.4;
+		font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		-webkit-font-smoothing: antialiased;
 
 		h2 {
-			font-family: 'C-B';
+			font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 		}
+
 
 		.list {
 
@@ -228,7 +231,9 @@
 			.list-item {
 
 				.list-item-title {
-					font-family: 'C-B';
+					font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+					font-weight: 700; /* CeraPRO-Bold */
+					color: #03314b;
 				}
 
 				.list-content {
@@ -254,7 +259,7 @@
 
 			.list2-left {
 				vertical-align: top;
-				font-family: 'C-B';
+				font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 				color: rgb(3, 101, 242);
 
 
@@ -270,7 +275,7 @@
 					vertical-align: top;
 
 					.list2-item-title {
-						font-family: 'C-B';
+						font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 					}
 
 					.list2-item-content {
@@ -344,6 +349,8 @@
 						font-size: 1.125rem;
 						line-height: 1.5rem;
 						margin-bottom: 1.5rem;
+						font-weight: 700; /* CeraPRO-Bold */
+						color: #03314b;
 					}
 
 					.list-content {
@@ -441,7 +448,9 @@
 
 					.list-item-title {
 						font-size: 20px;
-						font-family: 'C-B';
+						font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+						font-weight: 700; /* CeraPRO-Bold */
+						color: #03314b;
 						margin-bottom: 24px;
 					}
 

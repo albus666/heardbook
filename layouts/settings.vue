@@ -12,7 +12,18 @@
           <!-- 左侧 Logo -->
           <div class="header__left">
             <NuxtLink to="/" class="header__logo">
-              <img src="/img/proof/logo.png" alt="Heardly" class="header__logo-img" />
+              <!-- 桌面端使用原来的 Blinkist Logo -->
+              <img
+                src="/img/proof/logo.png"
+                alt="Heardly"
+                class="header__logo-img header__logo-img--desktop desktop-only"
+              />
+              <!-- 手机端使用新的 HeardLy 图标 -->
+              <img
+                src="/img/download/HeardLy.png"
+                alt="Heardly"
+                class="header__logo-img header__logo-img--mobile desktop-hide"
+              />
             </NuxtLink>
           </div>
 
@@ -44,54 +55,48 @@
               </div>
             </transition>
 
-            <!-- 桌面端导航链接 -->
+            <!-- 桌面端导航链接（左侧：Explore + 主导航；右侧：CTA 按钮） -->
             <nav class="header__nav desktop-only" v-show="!showSearch">
-              <!-- Explore 下拉菜单 -->
-              <div class="header__explore" v-click-outside="closeExplore">
-                <button class="header__explore-btn" @click="toggleExplore">
+              <!-- Explore 按钮 -->
+              <div class="header__explore">
+                <button
+                  class="header__explore-btn"
+                  :class="{ 'header__explore-btn--active': showExplore }"
+                  @click="toggleExplore"
+                >
                   <span>Explore</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="header__arrow">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    :class="{ 'header__explore-arrow--up': showExplore }"
+                  >
                     <path d="M11.796 13.888 7.104 9.256a.895.895 0 0 0-1.253 0 .867.867 0 0 0 0 1.238l5.318 5.25a.895.895 0 0 0 1.253 0l5.318-5.25a.867.867 0 0 0 0-1.238.895.895 0 0 0-1.253 0l-4.691 4.632Z"></path>
                   </svg>
                 </button>
-
-                <!-- Explore 下拉内容 -->
-                <transition name="dropdown">
-                  <div v-if="showExplore" class="explore-menu">
-                    <div class="explore-menu__section">
-                      <h3 class="explore-menu__title">Discover</h3>
-                      <ul class="explore-menu__list">
-                        <li><NuxtLink to="/en/app/for-you" class="explore-menu__link">For You</NuxtLink></li>
-                        <li><NuxtLink to="/en/app/trending" class="explore-menu__link">Trending</NuxtLink></li>
-                        <li><NuxtLink to="/en/app/new-releases" class="explore-menu__link">New Releases</NuxtLink></li>
-                      </ul>
-                    </div>
-                    <div class="explore-menu__section">
-                      <h3 class="explore-menu__title">Categories</h3>
-                      <ul class="explore-menu__list">
-                        <li><NuxtLink to="/en/content/categories/productivity" class="explore-menu__link">Productivity</NuxtLink></li>
-                        <li><NuxtLink to="/en/content/categories/psychology" class="explore-menu__link">Psychology</NuxtLink></li>
-                        <li><NuxtLink to="/en/content/categories/philosophy" class="explore-menu__link">Philosophy</NuxtLink></li>
-                        <li><NuxtLink to="/en/content/categories/fiction" class="explore-menu__link">Fiction</NuxtLink></li>
-                      </ul>
-                    </div>
-                  </div>
-                </transition>
               </div>
 
-              <NuxtLink to="/en/app/library" class="header__link">My Library</NuxtLink>
-              <NuxtLink to="/en/app/highlights" class="header__link">Highlights</NuxtLink>
+              <!-- 主导航链接：根据当前路由动态配置（My Library / Highlights 等） -->
+              <NuxtLink
+                v-for="link in mainNavLinks"
+                :key="link.to"
+                :to="link.to"
+                class="header__link"
+              >
+                {{ link.label }}
+              </NuxtLink>
             </nav>
 
-            <!-- Upgrade 按钮 -->
+            <!-- 右侧主 CTA：文案可根据路由切换（Upgrade now / Start free trial 等） -->
             <NuxtLink to="/pricing" class="header__upgrade desktop-only">
-              Upgrade now
+              {{ primaryCtaText }}
             </NuxtLink>
 
-            <!-- Account 菜单 -->
+            <!-- Account 菜单（右侧次要 CTA：文案随路由变化） -->
             <div class="header__account" v-click-outside="closeAccount">
               <button class="header__account-btn" @click="toggleAccount">
-                <span>Account</span>
+                <span>{{ secondaryCtaText }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M11.796 13.888 7.104 9.256a.895.895 0 0 0-1.253 0 .867.867 0 0 0 0 1.238l5.318 5.25a.895.895 0 0 0 1.253 0l5.318-5.25a.867.867 0 0 0 0-1.238.895.895 0 0 0-1.253 0l-4.691 4.632Z"></path>
                 </svg>
@@ -101,7 +106,9 @@
               <transition name="dropdown">
                 <ul v-if="showAccount" class="account-menu">
                   <li class="account-menu__item desktop-hide">
-                    <NuxtLink to="/pricing" class="account-menu__upgrade">Upgrade now</NuxtLink>
+                    <NuxtLink to="/pricing" class="account-menu__upgrade">
+                      {{ primaryCtaText }}
+                    </NuxtLink>
                   </li>
                   <li class="account-menu__item desktop-hide">
                     <NuxtLink to="/en/app/for-you" class="account-menu__link">Explore</NuxtLink>
@@ -135,6 +142,25 @@
       </div>
     </header>
 
+    <!-- Explore 全屏覆盖层 -->
+    <transition name="explore-overlay">
+      <div 
+        v-if="showExplore" 
+        class="explore-overlay" 
+        :style="{ top: headerHeight + 'px' }"
+        @click.self="closeExplore"
+      >
+        <div 
+          class="explore-overlay__container"
+          @click.stop
+        >
+          <div class="explore-overlay__content">
+            <DiscoverMenu />
+          </div>
+        </div>
+      </div>
+    </transition>
+
     <!-- 主内容区 -->
     <main class="settings-main">
       <Nuxt />
@@ -143,15 +169,97 @@
 </template>
 
 <script>
+import DiscoverMenu from '~/components/DiscoverMenu.vue'
+
 export default {
   name: 'SettingsHeader',
+  components: {
+    DiscoverMenu
+  },
+
+  computed: {
+    /**
+     * 左侧主导航（My Library / Highlights / 其它）：
+     * 根据当前路由返回不同的导航配置，方便在其它页面复用同一个 Header。
+     */
+    mainNavLinks() {
+      const path = this.$route?.path || ''
+
+      // Settings / App 主区域：My Library + Highlights
+      if (path.includes('/en/app') || path.includes('/en/nc/settings')) {
+        return [
+          { label: 'My Library', to: '/en/app/library' },
+          { label: 'Highlights', to: '/en/app/highlights' }
+        ]
+      }
+
+      // 下载页示例：可以按需配置其它导航
+      if (path.includes('/download')) {
+        return [
+          { label: 'Explore', to: '/en/app/for-you' },
+          { label: 'Library', to: '/en/app/library' }
+        ]
+      }
+
+      // 默认导航（其余路由使用）
+      return [
+        { label: 'My Library', to: '/en/app/library' },
+        { label: 'Highlights', to: '/en/app/highlights' }
+      ]
+    },
+
+    /**
+     * 右侧主 CTA 文案（Upgrade now / Start free trial ...）
+     */
+    primaryCtaText() {
+      const path = this.$route?.path || ''
+
+      // 登录相关页面示例：可扩展为「Start free trial」
+      if (path.includes('/login') || path.includes('/sign-in')) {
+        return 'Start free trial'
+      }
+
+      // 默认：Upgrade now
+      return 'Upgrade now'
+    },
+
+    /**
+     * 右侧次要 CTA 文案（Account / Log in ...）
+     */
+    secondaryCtaText() {
+      const path = this.$route?.path || ''
+
+      if (path.includes('/login') || path.includes('/sign-in')) {
+        return 'Log in'
+      }
+
+      return 'Account'
+    }
+  },
 
   data() {
     return {
+      headerHeight: 80, // header 高度，动态计算
       showAccount: false,
       showExplore: false,
       showSearch: false,
       searchQuery: ''
+    }
+  },
+
+  mounted() {
+    // 动态计算 header 高度
+    this.calculateHeaderHeight()
+    // 监听窗口大小变化
+    if (process.client) {
+      window.addEventListener('resize', this.calculateHeaderHeight)
+    }
+  },
+
+  beforeDestroy() {
+    // 清理事件监听
+    if (process.client) {
+      window.removeEventListener('resize', this.calculateHeaderHeight)
     }
   },
 
@@ -172,6 +280,15 @@ export default {
   },
 
   methods: {
+    calculateHeaderHeight() {
+      if (process.client) {
+        const header = this.$el?.querySelector('.header')
+        if (header) {
+          this.headerHeight = header.offsetHeight
+        }
+      }
+    },
+
     toggleAccount() {
       this.showAccount = !this.showAccount
       if (this.showAccount) {
@@ -185,7 +302,15 @@ export default {
     },
 
     toggleExplore() {
-      this.showExplore = !this.showExplore
+      const willOpen = !this.showExplore
+      
+      // 在打开前重新计算 header 高度
+      if (willOpen) {
+        this.calculateHeaderHeight()
+      }
+      
+      this.showExplore = willOpen
+      
       if (this.showExplore) {
         this.showAccount = false
         this.showSearch = false
@@ -318,7 +443,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 16px; /* 🔥 关键：固定内容区高度，防止 logo 撑开 */
   line-height: 1.1875rem;
   color: #042330;
   font-size: 1rem;
@@ -331,13 +456,14 @@ export default {
 .header__left {
   display: flex;
   align-items: center;
-  height: 100%;
+  height: 16px; /* 与容器高度一致，防止被 logo 撑开 */
   line-height: 1.1875rem;
   color: #042330;
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   font-family: "CeraPro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   box-sizing: border-box;
+  margin-right: 24px; /* Logo 与搜索图标之间的间距 */
 }
 
 .header__logo {
@@ -347,8 +473,15 @@ export default {
 }
 
 .header__logo-img {
-  height: 36px;
+  height: 36px; /* Logo 大小，会溢出但不撑开容器 */
   width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* 桌面端 logo 不设置圆角 */
+.header__logo-img--desktop {
+  border-radius: 0;
 }
 
 .header__right {
@@ -357,7 +490,7 @@ export default {
   gap: 24px;
   flex: 1;
   justify-content: flex-end;
-  height: 100%;
+  height: 16px; /* 与容器高度一致 */
   line-height: 1.1875rem;
   color: #042330;
   font-size: 1rem;
@@ -373,7 +506,7 @@ export default {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -474,68 +607,25 @@ export default {
   line-height: 1.1875rem;
   font-family: inherit;
   padding: 8px 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .header__explore-btn:hover {
   opacity: 0.7;
 }
 
-.header__arrow {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s ease;
+.header__explore-btn--active {
+  color: #0365F2; /* 激活时文字和箭头变为蓝色 */
 }
 
-.explore-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 8px;
-  background-color: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  display: flex;
-  gap: 32px;
-  min-width: 400px;
-  z-index: 1001;
+.header__explore-btn--active svg {
+  color: #0365F2; /* 确保箭头也是蓝色 */
+  fill: #0365F2; /* SVG 填充颜色 */
 }
 
-.explore-menu__section {
-  flex: 1;
-}
-
-.explore-menu__title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #042330;
-  margin: 0 0 12px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.explore-menu__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.explore-menu__list li {
-  margin-bottom: 8px;
-}
-
-.explore-menu__link {
-  color: #042330;
-  text-decoration: none;
-  font-size: 1rem;
-  line-height: 1.1875rem;
-  transition: opacity 0.2s ease;
-}
-
-.explore-menu__link:hover {
-  opacity: 0.7;
+.header__explore-arrow--up {
+  transform: scaleY(-1); /* 箭头上下对称翻折 */
+  transition: transform 0.2s ease; /* 添加翻折过渡效果 */
 }
 
 /* ========== Upgrade 按钮 ========== */
@@ -550,6 +640,7 @@ export default {
   line-height: 1.1875rem;
   transition: opacity 0.2s ease;
   white-space: nowrap;
+   margin-left: auto; /*将 Upgrade now 与前面的导航分成左右两部分 */
 }
 
 .header__upgrade:hover {
@@ -567,13 +658,13 @@ export default {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0;
   color: #042330;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.1875rem;
   font-family: inherit;
-  padding: 8px 0;
+  padding: 6px 0;
   transition: opacity 0.2s ease;
 }
 
@@ -655,9 +746,41 @@ export default {
       padding: 1rem 0;
     }
 
+  /* 手机端：让 Logo、搜索、Account 三个元素从左到右依次排布 */
   .header__container {
-      padding-left: 1rem;
-      padding-right: 1rem;
+    padding-left: 3rem;
+    justify-content: flex-start; /* 从左开始排布，而不是两端对齐 */
+    height: 16px; /* 保持固定高度，防止被 logo 撑开 */
+  }
+
+  /* Logo 区域与搜索按钮之间的间距 */
+  .header__left {
+    margin-right: 16px; /* 可根据视觉效果微调，比如 8/16px */
+    height: 16px; /* 与容器高度一致 */
+  }
+
+  /* 默认：手机和平板上都用 150px 的间距（就是你现在调好的效果） */
+  @media (max-width: 1024px) {
+    .header__right {
+      flex: 0 0 auto;
+      justify-content: flex-start;
+      gap: 152px;              /* 搜索 与 Account 之间的间距 = 150px */
+      height: 16px; /* 与容器高度一致 */
+    }
+  }
+
+  /* 只有非常窄的小屏（比如宽度 ≤ 360px）时，把间距缩小一点避免换行 */
+  @media (max-width: 360px) {
+    .header__right {
+      gap: 90px;               /* 自己按效果再调，比如 80 / 100 都可以 */
+    }
+  }
+
+  .header__logo-img--mobile {
+    width: 38px;
+    height: 36px;
+    border-radius: 25%;
+    object-fit: contain;
   }
 
   .header__search-input {
@@ -682,5 +805,45 @@ export default {
   .settings-main {
     padding: 24px 16px;
   }
+}
+
+/* ========== Explore 覆盖层 ========== */
+.explore-overlay {
+  position: fixed;
+  /* top 值通过 :style 动态设置，始终相对于视口顶部 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明背景，可以看到原页面 */
+  z-index: 1000; /* 高于页面内容，但覆盖层从 header 下方开始，所以不会遮挡 header */
+  overflow: visible; /* 不限制滚动，内容自然显示 */
+  /* 允许点击背景区域关闭菜单（通过 @click.self） */
+  pointer-events: auto; /* 允许点击事件 */
+  /* fixed 定位确保覆盖层始终固定在视口，不随页面滚动 */
+  /* 覆盖层不会随页面滚动而移动，始终显示在视口顶部（header下方） */
+}
+
+.explore-overlay__container {
+  position: relative;
+  background-color: transparent; /* 改为透明，让 DiscoverMenu 的白色背景显示 */
+  padding: 0;
+  /* 高度由内容决定，不强制最小高度 */
+  /* 使用 @click.stop 阻止点击事件冒泡，防止点击内容区域时关闭菜单 */
+}
+
+.explore-overlay__content {
+  width: 100%;
+  padding: 0; /* 移除 padding，让 DiscoverMenu 自己控制 */
+}
+
+/* 覆盖层动画 */
+.explore-overlay-enter-active,
+.explore-overlay-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.explore-overlay-enter,
+.explore-overlay-leave-to {
+  opacity: 0;
 }
 </style>
