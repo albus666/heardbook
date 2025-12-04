@@ -64,7 +64,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
   text-decoration: none;
@@ -73,10 +72,17 @@ export default {
   font-family: "CeraPro", sans-serif;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
+  background: transparent;
 }
 
-.base-card:hover {
-  background-color: #f1f6f4;
+@media (min-width: 1024px) {
+  .base-card {
+    height: 100%;
+  }
+  
+  .base-card:hover {
+    background-color: #f1f6f4;
+  }
 }
 
 .base-card-image {
@@ -97,6 +103,7 @@ export default {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 0.5rem;
+  flex-shrink: 0;
 }
 
 .base-card-info {

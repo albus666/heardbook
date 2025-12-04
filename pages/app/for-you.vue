@@ -81,90 +81,6 @@
         </div>
       </div>
 
-      <!-- 继续阅读区域 (横向滚动) -->
-      <div v-if="continueReading.length > 0" class="books-section">
-        <div class="section-header">
-          <div class="section-header-text">
-            <h2 class="section-title">Continue reading</h2>
-            <p class="section-subtitle">Pick up where you left off</p>
-          </div>
-        </div>
-        <div class="scroll-wrapper">
-          <button
-              class="scroll-button scroll-button-left"
-              :class="{ 'scroll-button-disabled': !canScrollLeft.continue }"
-              :disabled="!canScrollLeft.continue"
-              @click="scrollLeft('continue')"
-              aria-label="Scroll left"
-          >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="scroll-icon">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 14.879l-7.94-7.94a1.5 1.5 0 10-2.12 2.122l9 9a1.5 1.5 0 002.12 0l9-9a1.5 1.5 0 00-2.12-2.122L12 14.88z" fill="currentColor"></path>
-            </svg>
-          </button>
-          <div class="books-scroll" ref="continueScroll" @scroll="updateScrollButtons('continue')">
-            <BookCard
-                v-for="book in continueReading"
-                :key="book.id"
-                :book="book"
-                class="scroll-item"
-            />
-          </div>
-          <button
-              class="scroll-button scroll-button-right"
-              :class="{ 'scroll-button-disabled': !canScrollRight.continue }"
-              :disabled="!canScrollRight.continue"
-              @click="scrollRight('continue')"
-              aria-label="Scroll right"
-          >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="scroll-icon">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 14.879l-7.94-7.94a1.5 1.5 0 10-2.12 2.122l9 9a1.5 1.5 0 002.12 0l9-9a1.5 1.5 0 00-2.12-2.122L12 14.88z" fill="currentColor"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- 新发布区域 (横向滚动) -->
-      <div v-if="newReleases.length > 0" class="books-section">
-        <div class="section-header">
-          <div class="section-header-text">
-            <h2 class="section-title">New releases</h2>
-            <p class="section-subtitle">Fresh content just added</p>
-          </div>
-        </div>
-        <div class="scroll-wrapper">
-          <button
-              class="scroll-button scroll-button-left"
-              :class="{ 'scroll-button-disabled': !canScrollLeft.new }"
-              :disabled="!canScrollLeft.new"
-              @click="scrollLeft('new')"
-              aria-label="Scroll left"
-          >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="scroll-icon">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 14.879l-7.94-7.94a1.5 1.5 0 10-2.12 2.122l9 9a1.5 1.5 0 002.12 0l9-9a1.5 1.5 0 00-2.12-2.122L12 14.88z" fill="currentColor"></path>
-            </svg>
-          </button>
-          <div class="books-scroll" ref="newScroll" @scroll="updateScrollButtons('new')">
-            <BookCard
-                v-for="book in newReleases"
-                :key="book.id"
-                :book="book"
-                class="scroll-item"
-            />
-          </div>
-          <button
-              class="scroll-button scroll-button-right"
-              :class="{ 'scroll-button-disabled': !canScrollRight.new }"
-              :disabled="!canScrollRight.new"
-              @click="scrollRight('new')"
-              aria-label="Scroll right"
-          >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="scroll-icon">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 14.879l-7.94-7.94a1.5 1.5 0 10-2.12 2.122l9 9a1.5 1.5 0 002.12 0l9-9a1.5 1.5 0 00-2.12-2.122L12 14.88z" fill="currentColor"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
       <!-- 合集推荐区域 (横向滚动) -->
       <div v-if="collections.length > 0" class="collections-section">
         <div class="section-header">
@@ -208,7 +124,7 @@
       </div>
 
       <!-- 空状态 -->
-      <div v-if="!recommendedBooks.length && !continueReading.length && !newReleases.length && !collections.length" class="empty-state">
+      <div v-if="!recommendedBooks.length && !collections.length" class="empty-state">
         <div class="empty-state-content">
           <div class="empty-state-box">
             <div class="empty-state-title">Discover your next read</div>
@@ -238,19 +154,13 @@ export default {
     return {
       featuredBook: null,
       recommendedBooks: [],
-      continueReading: [],
-      newReleases: [],
       collections: [],
       canScrollLeft: {
         recommended: false,
-        continue: false,
-        new: false,
         collections: false
       },
       canScrollRight: {
         recommended: false,
-        continue: false,
-        new: false,
         collections: false
       }
     }
@@ -341,9 +251,6 @@ export default {
         }
       ]
 
-      this.continueReading = this.recommendedBooks.slice(0, 4)
-      this.newReleases = this.recommendedBooks.slice(2, 6)
-
       this.collections = [
         {
           id: '1',
@@ -371,8 +278,6 @@ export default {
     scrollLeft(section) {
       const scrollMap = {
         recommended: this.$refs.recommendedScroll,
-        continue: this.$refs.continueScroll,
-        new: this.$refs.newScroll,
         collections: this.$refs.collectionsScroll
       }
       const container = scrollMap[section]
@@ -384,8 +289,6 @@ export default {
     scrollRight(section) {
       const scrollMap = {
         recommended: this.$refs.recommendedScroll,
-        continue: this.$refs.continueScroll,
-        new: this.$refs.newScroll,
         collections: this.$refs.collectionsScroll
       }
       const container = scrollMap[section]
@@ -397,8 +300,6 @@ export default {
     updateScrollButtons(section) {
       const scrollMap = {
         recommended: this.$refs.recommendedScroll,
-        continue: this.$refs.continueScroll,
-        new: this.$refs.newScroll,
         collections: this.$refs.collectionsScroll
       }
       const container = scrollMap[section]
@@ -410,8 +311,6 @@ export default {
     },
     updateAllScrollButtons() {
       this.updateScrollButtons('recommended')
-      this.updateScrollButtons('continue')
-      this.updateScrollButtons('new')
       this.updateScrollButtons('collections')
     }
   }

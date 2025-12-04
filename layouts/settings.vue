@@ -743,7 +743,7 @@ export default {
   }
 
     .header__inner {
-      padding: 1rem 0;
+      padding: 1.75rem 0; /* 28px 上下内边距 */
     }
 
   /* 手机端：让 Logo、搜索、Account 三个元素从左到右依次排布 */
