@@ -1621,7 +1621,7 @@ export default {
   grid-template-columns: repeat(4, auto);
   gap: 3rem;
   grid-flow: row;
-  justify-content: start;
+  justify-content: flex-start;
   padding-bottom: 2rem;
   margin-bottom: -2rem;
   overflow-x: auto;
@@ -1633,7 +1633,7 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 3rem;
-    justify-content: start;
+    justify-content: flex-start;
     scroll-snap-type: x mandatory;
   }
 }
@@ -1786,7 +1786,7 @@ export default {
   grid-template-columns: repeat(4, auto);
   gap: 3rem;
   grid-flow: row;
-  justify-content: start;
+  justify-content: flex-start;
   padding-bottom: 2rem;
   margin-bottom: -2rem;
   overflow-x: auto;
@@ -1804,7 +1804,7 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    justify-content: start;
+    justify-content: flex-start;
     scroll-snap-type: x mandatory;
   }
 }

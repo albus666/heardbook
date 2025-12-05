@@ -255,6 +255,16 @@ function binl2b64(binarray)
   return str;
 }
 
+// CommonJS 导出（向后兼容）
 module.exports = {
     hex_md5
+}
+
+// ES6 导出（支持 import 语法）
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports.hex_md5 = hex_md5
+}
+// 如果支持 ES6 模块
+if (typeof exports !== 'undefined') {
+    exports.hex_md5 = hex_md5
 }

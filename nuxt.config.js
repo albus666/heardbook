@@ -40,6 +40,21 @@ module.exports = {
     '@nuxtjs/gtm'
   ],
 
+  // GTM 配置
+  gtm: {
+    id: process.env.GTM_ID || '', // 设置你的 GTM ID，例如 'GTM-XXXXXXX'
+    enabled: !!process.env.GTM_ID // 仅在配置了 GTM_ID 时启用
+  },
+
+  // 环境变量配置（可在客户端和服务端访问）
+  publicRuntimeConfig: {
+    apiBaseUrl: process.env.API_BASE_URL || 'https://bookheard.soundems.com/',
+    usermavenKey: process.env.USERMAVEN_KEY || 'UMFOqspdXa',
+    usermavenHost: process.env.USERMAVEN_HOST || 'https://events.usermaven.com',
+    usermavenLibUrl: process.env.USERMAVEN_LIB_URL || 'https://t.usermaven.com/lib.js',
+    usermavenAutocapture: process.env.USERMAVEN_AUTOCAPTURE !== 'false'
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     loaders: {
