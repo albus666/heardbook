@@ -1,8 +1,5 @@
 <template>
   <div class="auth-page">
-    <!-- Header -->
-    <AppHeader />
-
     <!-- Main Content -->
     <div class="loginV2 active">
       <div class="middle-container section--hero">
@@ -110,12 +107,11 @@
 
 <script>
 import HeriFooter from '@/components/heri-footer.vue'
-import AppHeader from '@/components/AppHeader.vue'
 
 export default {
+  layout: 'auth',
   components: {
-    HeriFooter,
-    AppHeader
+    HeriFooter
   },
   data() {
     return {
@@ -310,7 +306,7 @@ export default {
   background: #f5f9f7;
 }
 
-// Header 样式已移至 AppHeader 组件
+// Header 样式已移至 auth 布局
 
 // Login 主体样式
 .loginV2 {

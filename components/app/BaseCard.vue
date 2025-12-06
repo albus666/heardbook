@@ -99,7 +99,7 @@ export default {
   z-index: 1;
 }
 
-.base-card /deep/ .lazy-image-wrapper {
+.base-card :deep(.lazy-image-wrapper) {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 0.5rem;

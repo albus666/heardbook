@@ -8,6 +8,7 @@
 
 <script>
 export default {
+  layout: 'auth',
   mounted() {
     this.handleCallback()
   },

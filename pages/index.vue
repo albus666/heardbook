@@ -536,15 +536,15 @@
 						border: 4px solid #0037F5;
 						border-right: none;
 
-						/deep/.el-input,
-						/deep/.el-input__inner {
+						:deep(.el-input),
+						:deep(.el-input__inner) {
 							height: 100%;
 							width: 100%;
 							border: none;
 							padding: 0;
 						}
 
-						/deep/.el-input__inner::placeholder {
+						:deep(.el-input__inner::placeholder) {
 							color: #A7A7A7;
 						}
 					}
@@ -805,11 +805,11 @@
 			.full4-swiper-pagination {
 				text-align: center;
 
-				/deep/.swiper-pagination-bullet {
+				:deep(.swiper-pagination-bullet) {
 					background: #BAC8CE;
 				}
 
-				/deep/.swiper-pagination-bullet-active {
+				:deep(.swiper-pagination-bullet-active) {
 					background: #3B4649;
 				}
 			}
@@ -1295,7 +1295,7 @@
 						margin-top: 1rem;
 						margin-bottom: 3.6rem;
 
-						/deep/.swiper-pagination-bullet {
+						:deep(.swiper-pagination-bullet) {
 							width: 6rem;
 							height: 0.2rem;
 							border-radius: 2px;
@@ -1502,12 +1502,12 @@
 							padding-left: 74px;
 							border-radius: 8px 0 0 8px;
 
-							/deep/.el-input,
-							/deep/.el-input__inner {
+							:deep(.el-input),
+							:deep(.el-input__inner) {
 								font-size: 20px;
 							}
 
-							/deep/.el-input__inner::placeholder {
+							:deep(.el-input__inner::placeholder) {
 								font-size: 26px;
 							}
 						}
@@ -1938,7 +1938,7 @@
 					.full4-swiper-pagination {
 						margin-top: 30px;
 
-						/deep/.swiper-pagination-bullet {
+						:deep(.swiper-pagination-bullet) {
 							width: 98px;
 							height: 4px;
 							border-radius: 2px;

@@ -1,23 +1,5 @@
 <template>
   <div class="auth-page">
-    <!-- Header -->
-    <div class="auth-header">
-      <div class="heri-container">
-        <div class="header-content">
-          <div class="header-left">
-            <nuxt-link to="/" class="logo">
-              <img src="@/static/img/head/logo3.png" alt="Logo" />
-            </nuxt-link>
-            <nuxt-link to="/" class="explore-link">Explore</nuxt-link>
-          </div>
-          <div class="header-right">
-            <button class="btn-trial">Start free trial</button>
-            <nuxt-link to="/auth/login" class="login-link">Log in</nuxt-link>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Content -->
     <div class="auth-main">
       <div class="signup-wrapper">
@@ -132,6 +114,7 @@
 import HeriFooter from '@/components/heri-footer.vue'
 
 export default {
+  layout: 'auth',
   components: {
     HeriFooter
   },

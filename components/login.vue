@@ -160,8 +160,8 @@
 					overflow: hidden;
 					background: #fff;
 
-					/deep/.el-input,
-					/deep/.el-input__inner {
+					:deep(.el-input),
+					:deep(.el-input__inner) {
 						height: 100%;
 						width: 100%;
 						border: none;
@@ -221,8 +221,8 @@
 					transform: translateY(-100%);
 					animation: titleBottom .1s .5s linear forwards;
 
-					/deep/.el-input,
-					/deep/.el-input__inner {
+					:deep(.el-input),
+					:deep(.el-input__inner) {
 						font-size: 1rem;
 					}
 				}
@@ -329,8 +329,8 @@
 						overflow: hidden;
 						background: #fff;
 
-						/deep/.el-input,
-						/deep/.el-input__inner {
+						:deep(.el-input),
+						:deep(.el-input__inner) {
 							height: 100%;
 							width: 100%;
 							border: none;

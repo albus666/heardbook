@@ -148,11 +148,11 @@
 			justify-content: center;
 		}
 
-		/deep/.list2-bottom {
+		:deep(.list2-bottom) {
 			justify-content: center !important;
 		}
 
-		/deep/.list2-left {
+		:deep(.list2-left) {
 			display: none !important;
 		}
 	}
@@ -238,18 +238,18 @@
 				text-shadow: 0.06rem 0.08rem 0 rgba(0, 0, 0, 0.27);
 			}
 
-			/deep/.footer {
+			:deep(.footer) {
 				padding-top: 3.625rem !important;
 				padding-bottom: 0 !important;
 			}
 
-			/deep/.list2-bottom-left {
+			:deep(.list2-bottom-left) {
 				padding-bottom: 2.5rem;
 				margin-bottom: 0 !important;
 				text-align: center;
 			}
 
-			/deep/.list2-bottom-item {
+			:deep(.list2-bottom-item) {
 				color: #6B6B6B !important;
 				font-size: 0.6875rem !important;
 			}
@@ -333,7 +333,7 @@
 				text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.27);
 			}
 
-			/deep/.list2-bottom-item {
+			:deep(.list2-bottom-item) {
 				font-size: 13px !important;
 			}
 		}

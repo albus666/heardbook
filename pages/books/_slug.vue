@@ -741,7 +741,7 @@ export default {
   width: 100%;
 }
 
-.book-cover-wrapper /deep/ .lazy-image-wrapper {
+.book-cover-wrapper :deep(.lazy-image-wrapper) {
   width: 100%;
   aspect-ratio: 1;
   border-radius: 0.5rem;
