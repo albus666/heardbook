@@ -140,7 +140,7 @@
                       </button>
 
                       <!-- Forgot Password Link -->
-                      <a class="auth-form__forgot-password" href="/en/nc/forgot_password">
+                      <a class="auth-form__forgot-password" href="/auth/forgot_password">
                         Forgot your password?
                       </a>
                     </form>
@@ -149,13 +149,13 @@
 
                 <!-- Footer Links -->
                 <div class="login-modal-form__footer">
-                  <a
-                      href="#"
-                      class="login-modal-form__toggle-form"
-                      @click.prevent="switchToSignup"
-                  >
-                    You don't have an account?
-                  </a>
+                    <a
+                        href="#"
+                        class="login-modal-form__toggle-form"
+                        @click.prevent="switchToSignup"
+                    >
+                      You don't have an account?
+                    </a>
                 </div>
               </div>
             </div>

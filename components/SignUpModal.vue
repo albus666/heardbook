@@ -134,7 +134,7 @@
                 <a
                     class="auth-popup-form__footer auth-popup-form__toggle-form"
                     href="#"
-                    @click.prevent="switchToLogin"
+                    @click.prevent="handleSwitchToLoginModal"
                 >
                   Already have an account?
                 </a>
@@ -338,6 +338,10 @@ export default {
     switchToSignup() {
       this.mode = 'signup'
       this.$emit('mode-change', 'signup')
+    },
+    handleSwitchToLoginModal() {
+      // 当在 signup 模式下点击 "Already have an account?" 时，切换到 LoginModal
+      this.$emit('switch-to-login-modal')
     },
     handleSignup() {
       this.$emit('signup', {...this.signupForm})

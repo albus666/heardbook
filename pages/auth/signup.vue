@@ -89,9 +89,9 @@
 
             <!-- Already have account link -->
             <div class="auth-links">
-              <nuxt-link to="/auth/login" class="link-primary">
+              <a href="#" class="link-primary" @click.prevent="openLoginModal">
                 Already have an account?
-              </nuxt-link>
+              </a>
             </div>
           </div>
         </div>
@@ -118,6 +118,7 @@ export default {
   components: {
     HeriFooter
   },
+  inject: ['openLoginModal'],
   data() {
     return {
       email: '',
@@ -213,11 +214,21 @@ export default {
 }
 
 .auth-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
+  line-height: 1.1875rem;
+  color: #042330;
+  font-size: 1rem;
+  font-family: "CeraPRO-Regular", sans-serif, arial;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 2rem !important;
+  padding-bottom: 4rem !important;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
+  width: 71rem;
+  user-select: text !important;
 }
 
 .signup-wrapper {

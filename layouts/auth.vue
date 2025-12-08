@@ -65,13 +65,14 @@
 
     <!-- SignUp Modal -->
     <SignUpModal
-      :show="showSignUpModal && signUpModalMode === 'signup'"
-      :initial-mode="'signup'"
+      :show="showSignUpModal"
+      :initial-mode="signUpModalMode"
       @close="closeSignUpModal"
       @mode-change="handleModalModeChange"
       @signup="handleSignup"
       @facebook-signup="handleFacebookSignup"
       @google-signup="handleGoogleSignup"
+      @switch-to-login-modal="switchToLoginModal"
     />
 
     <!-- Login Modal -->
@@ -116,8 +117,8 @@ export default {
         ]
       }
 
-      // 登录/注册页面：不显示主导航链接
-      if (path.includes('/auth/login') || path.includes('/auth/signup') || path.includes('/login') || path.includes('/sign-in')) {
+      // 所有 /auth/ 路径下的页面：不显示主导航链接
+      if (path.includes('/auth/')) {
         return []
       }
 
@@ -147,13 +148,7 @@ export default {
      * 右侧次要 CTA 文案（Account / Log in ...）
      */
     secondaryCtaText() {
-      const path = this.$route?.path || ''
-
-      if (path.includes('/auth/login') || path.includes('/login') || path.includes('/sign-in')) {
-        return 'Log in'
-      }
-
-      return 'Account'
+     return 'Log in'
     },
 
     /**
@@ -161,20 +156,23 @@ export default {
      */
     isAuthRoute() {
       const path = this.$route?.path || ''
-      return (
-        path.includes('/auth/login') ||
-        path.includes('/auth/signup') ||
-        path.includes('/login') ||
-        path.includes('/sign-in')
-      )
+      // 所有 /auth/ 路径下的页面都视为 auth 路由
+      return path.includes('/auth/')
     }
   },
 
+  provide() {
+    return {
+      openLoginModal: this.openLoginModal,
+      openSignUpModal: this.openSignUpModal
+    }
+  },
   data() {
     return {
       showSignUpModal: false,
       showLoginModal: false,
-      signUpModalMode: 'signup'
+      signUpModalMode: 'signup',
+      isTransitioning: false
     }
   },
 
@@ -198,14 +196,39 @@ export default {
       this.showSignUpModal = false
     },
     switchToSignup() {
-      this.showLoginModal = false
+      // 从 LoginModal 切换到 SignUpModal（signup 模式）
+      // 实现交叉淡入淡出：先显示新模态框，再隐藏旧模态框
       this.signUpModalMode = 'signup'
       this.showSignUpModal = true
+      // 延迟关闭旧模态框，实现重叠过渡效果
+      // 使用 requestAnimationFrame 确保在下一帧执行，更流畅
+      this.$nextTick(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            this.showLoginModal = false
+          }, 100) // 约1/3的过渡时间，实现平滑的交叉淡入淡出
+        })
+      })
+    },
+    switchToLoginModal() {
+      // 从 SignUpModal 切换到 LoginModal
+      // 实现交叉淡入淡出：先显示新模态框，再隐藏旧模态框
+      this.showLoginModal = true
+      // 延迟关闭旧模态框，实现重叠过渡效果
+      // 使用 requestAnimationFrame 确保在下一帧执行，更流畅
+      this.$nextTick(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            this.showSignUpModal = false
+          }, 100) // 约1/3的过渡时间，实现平滑的交叉淡入淡出
+        })
+      })
     },
     handleForgotPassword() {
-      // 处理忘记密码逻辑
-      console.log('忘记密码')
-      // TODO: 实现忘记密码逻辑
+      // 关闭登录弹窗
+      this.closeLoginModal()
+      // 跳转到忘记密码页面
+      this.$router.push('/en/nc/forgot_password')
     },
     handleModalModeChange(mode) {
       this.signUpModalMode = mode
