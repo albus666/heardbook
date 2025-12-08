@@ -294,7 +294,7 @@
                 </div>
               </transition>
             </div>
-
+            
             <!-- 隐藏的测量容器，用于提前测量新内容高度 -->
             <div ref="measureContainer" class="modal__measure"
                  style="visibility: hidden; position: absolute; left: -9999px; top: 0; width: 392px;">
@@ -528,10 +528,10 @@ export default {
     handleModeTransition() {
       // 防止重复触发
       if (this.isTransitioning) return
-
+      
       // 1. 标记正在切换
       this.isTransitioning = true
-
+      
       // 2. 保存当前高度
       const oldHeight = this.$refs.modalStep?.offsetHeight || 0
       if (oldHeight === 0) {
@@ -548,14 +548,14 @@ export default {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             const newHeight = this.$refs.measureContainer?.offsetHeight || 0
-
+            
             if (newHeight === 0) {
               // 如果获取不到高度，直接切换内容
               this.tempMode = this.mode
               // 等待一帧，确保新内容已渲染，然后强制恢复可见
               this.$nextTick(() => {
                 this.ensureContentVisible()
-                this.isTransitioning = false
+              this.isTransitioning = false
                 this.isFadingOut = false
               })
               // 保持当前高度，不设置为 'auto'
@@ -569,11 +569,11 @@ export default {
                 // 只处理 height 属性的 transition
                 if (e.target === this.$refs.container && e.propertyName === 'height') {
                   this.$refs.container.removeEventListener('transitionend', onTransitionEnd)
-
+                  
                   // 高度动画完成后，让内容淡入
                   // 移除 content-fade-out 类，CSS transition 会自动处理淡入效果
                   this.isFadingOut = false  // 触发淡入动画
-
+                  
                   // 等待一帧，让浏览器应用样式变化，然后移除 transitioning 状态
                   this.$nextTick(() => {
                     this.isTransitioning = false
@@ -587,7 +587,7 @@ export default {
 
               // 绑定 transitionend 事件
               this.$refs.container.addEventListener('transitionend', onTransitionEnd)
-
+              
               // 关键优化：先让旧内容淡出，然后切换内容
               // 1. 先清除可能存在的内联样式，让 CSS transition 能够正常工作
               if (this.$refs.modalStep) {
@@ -603,7 +603,7 @@ export default {
               this.$refs.container.offsetHeight
               
               // 3. 先设置 isFadingOut，让旧内容开始淡出
-              this.isFadingOut = true
+                this.isFadingOut = true
               
               // 4. 等待一帧，让淡出动画开始，然后切换内容
               requestAnimationFrame(() => {
@@ -623,7 +623,7 @@ export default {
                   
                   // 开始高度动画
                   requestAnimationFrame(() => {
-                    this.containerHeight = `${newHeight}px`
+                this.containerHeight = `${newHeight}px`
                   })
                 })
               })
@@ -642,7 +642,7 @@ export default {
                 }
                 // 确保内容可见
                 this.ensureContentVisible()
-                this.isTransitioning = false
+              this.isTransitioning = false
                 this.isFadingOut = false
               })
               // 保持当前高度，不设置为 'auto'
