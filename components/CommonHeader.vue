@@ -1198,6 +1198,7 @@ export default {
 
   .header__container {
     padding-left: 3rem;
+    padding-right: 3rem;
     justify-content: flex-start;
     height: 16px;
     position: relative;
@@ -1321,8 +1322,9 @@ export default {
 }
 
 .discover-menu__header {
-  padding: 0; /* 移除 padding，让标题和横线都从相同位置开始 */
-  padding-bottom: 0.75rem; /* 横线下方的间距 */
+  /* 移除 padding，让标题和横线都从相同位置开始 */
+  /* 横线下方的间距 */
+  padding: 0 0 0.75rem;
 }
 
 .discover-menu__divider {

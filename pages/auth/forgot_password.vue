@@ -188,12 +188,17 @@ export default {
 }
 
 .reset-password__subheadline {
-	font-size: 1rem;
-  font-weight: 500;
-  font-family: 'CeraPRO',sans-serif;
-	color: #0f2830;
-	text-align: center;
+	-webkit-font-smoothing: antialiased;
+	font-family: "CeraPRO", sans-serif;
+	box-sizing: inherit;
+	margin-top: 0;
 	margin-bottom: 2rem;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.5;
+	color: #03314B;
+	text-align: center;
+	user-select: text !important;
 }
 
 .reset-password__form {

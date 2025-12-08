@@ -3,7 +3,10 @@
     <!-- Main Content -->
     <div class="auth-main">
       <div class="signup-wrapper">
-        <h1 class="signup-title">Get unlimited access to the key ideas of<br>7,500+ non-fiction bestsellers</h1>
+        <h1 class="signup-title">
+          <span class="signup-title__desktop">Get unlimited access to the key ideas of<br>7,500+ non-fiction bestsellers</span>
+          <span class="signup-title__mobile">Get unlimited access to the<br>key ideas of 7,500+ non-fiction bestsellers</span>
+        </h1>
         
         <div class="signup-container">
           <div class="signup-left">
@@ -71,6 +74,10 @@
                 </svg>
                 Sign up with Google
               </button>
+
+              <a href="#" class="btn-social btn-apple">
+                <img src="@/static/img/auth/LoginWithApple.svg" alt="Continue with Apple" class="btn-apple__icon">
+              </a>
 
               <button class="btn-social btn-sso">
                 Sign up with SSO
@@ -239,48 +246,39 @@ export default {
 }
 
 .signup-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f2830;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-  font-family: 'CeraPRO', sans-serif;
-  max-height: calc(2rem * 1.2 * 2);
-  overflow: visible;
-  word-wrap: break-word;
-  word-break: break-word;
+  -webkit-font-smoothing: antialiased;
+  text-align: start !important;
+  margin-bottom: 0 !important;
+  color: #03314b;
+  font-family: CeraPro !important;
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+  line-height: 2.5rem !important;
+  user-select: text !important;
+
+  .signup-title__mobile {
+    display: none;
+  }
 }
 
 .signup-container {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  display: flex;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
   align-items: start;
 }
 
 .signup-left {
-  width: 100%;
-  max-width: 28rem;
-}
-
-.signup-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f2830;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-  font-family: 'CeraPRO', sans-serif;
-  max-height: calc(2rem * 1.2 * 2);
-  overflow: visible;
-  word-wrap: break-word;
-  word-break: break-word;
+  width: 41.666667% !important;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
   gap: 0;
+  margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -294,53 +292,38 @@ export default {
 }
 
 .form__field-container {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   border: 2px solid #bac8ce;
   border-radius: 0.25rem;
-  line-height: 1rem;
-  color: #042330;
-  font-size: 1rem;
-  -webkit-font-smoothing: antialiased;
-  font-family: "CeraPRO", sans-serif;
-  user-select: text !important;
-  position: relative;
   background-color: #ffffff;
+  transition: border-color 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
-.password-group .form__field-container {
-  padding-right: 0;
-}
-
-.password-group .form__input {
-  padding-right: 4rem;
+.form__field-container:focus-within {
+  border-color: #2ce080;
 }
 
 .form__input {
-  box-sizing: border-box;
-  width: 100%;
+  flex: 1;
   min-width: 0;
-  height: 40px;
-  padding: 10px 14px;
+  height: 2.5rem;
+  padding: 0.625rem 0.875rem;
   color: #042330;
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 16px;
-  font-family: "CeraPRO", sans-serif;
-  line-height: 20px;
+  font-family: "CeraPRO-Medium", "CeraPRO", sans-serif;
+  line-height: 1.25rem;
   background-color: transparent;
-  border: 0;
-  border-radius: 0;
-  outline: 0;
-  display: block;
-  cursor: text;
+  border: none;
+  outline: none;
   -webkit-appearance: none;
   appearance: none;
   -webkit-font-smoothing: antialiased;
-  user-select: text;
-
-  &:focus {
-    outline: 0;
-  }
+  box-sizing: border-box;
 
   &::placeholder {
     color: #bac8ce;
@@ -349,29 +332,22 @@ export default {
 }
 
 .password-toggle {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #6b7280;
-  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  align-self: center;
+  margin-right: 0.875rem;
+  padding: 0;
+  font-family: "CeraPRO", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
-  z-index: 1;
-  padding: 0.25rem 0.5rem;
-  outline: none;
-
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
-
-  &:active {
-    outline: none;
-    box-shadow: none;
-  }
+  line-height: 1.57;
+  color: #6d787e;
+  background: none;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  appearance: none;
 }
 
 .button {
@@ -404,25 +380,27 @@ export default {
 
 .divider {
   position: relative;
+  width: 100%;
+  margin: 2rem 0;
+  padding: 0;
+  font-family: "CeraPRO", sans-serif;
+  font-size: 0.875rem;
+  line-height: 0.0625rem;
+  color: #6d787e;
   text-align: center;
-  margin: 1rem 0;
+  border-bottom: 0.0625rem solid #bac8ce;
 
   &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-    background: #d1d5db;
+    display: none;
   }
 
   span {
     position: relative;
-    background: #ffffff;
+    background: #fff;
     padding: 0 1rem;
-    color: #6b7280;
     font-size: 0.875rem;
+    font-family: "CeraPRO-Medium", "CeraPRO", sans-serif;
+    font-weight: 500;
   }
 }
 
@@ -442,7 +420,6 @@ export default {
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  height: 2.75rem;
   margin-bottom: 1rem;
   text-align: center;
   text-decoration: none;
@@ -450,13 +427,10 @@ export default {
   border-radius: 0.25rem;
   cursor: pointer;
   color: white;
-  flex-grow: 1;
-  padding: 0.6875rem 1rem;
+  padding: 0.6875rem 1rem 0.8125rem;
   gap: 0.5rem;
   font-size: 1rem;
   transition: all 0.2s ease;
-  justify-content: center;
-  text-align: center;
 
   .icon {
     width: 1.5rem;
@@ -467,9 +441,6 @@ export default {
     background-color: #3A579D;
     border-color: #3A579D;
     position: relative;
-    padding: 0.6875rem 1rem;
-    justify-content: center;
-    text-align: center;
 
     .icon {
       position: absolute;
@@ -494,9 +465,6 @@ export default {
     border-color: #4285F4;
     color: #ffffff;
     position: relative;
-    padding: 0.6875rem 1rem;
-    justify-content: center;
-    text-align: center;
 
     .icon {
       position: absolute;
@@ -517,12 +485,47 @@ export default {
   }
 
   &.btn-sso {
-    background-color: #16423c;
-    border-color: #16423c;
+    background-color: #03314b;
+    border-color: #03314b;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0.75rem 1rem;
 
     &:hover {
-      background-color: #0f2e29;
-      border-color: #0f2e29;
+      background-color: #022438;
+      border-color: #022438;
+    }
+  }
+
+  &.btn-apple {
+    background-color: #ffffff;
+    border: 0.0625rem solid #000000;
+    color: #000000;
+    position: relative;
+    padding: 0.75rem 1rem;
+    line-height: 18px;
+
+    .btn-apple__icon {
+      -webkit-font-smoothing: antialiased;
+      font-family: "CeraPRO", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      font-weight: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      cursor: pointer !important;
+      color: #0552be;
+      text-align: center !important;
+      box-sizing: inherit;
+      user-select: text !important;
+      height: 18px;
+      width: auto;
+      aspect-ratio: 9 / 1;
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+      border-color: #000000;
     }
   }
 }
@@ -532,8 +535,7 @@ export default {
   font-family: "CeraPRO", sans-serif;
   color: #6b7280;
   line-height: 1.5;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
 
   a {
     color: #0365f2;
@@ -547,7 +549,7 @@ export default {
 
 .auth-links {
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
 
   a {
     text-decoration: none;
@@ -555,11 +557,12 @@ export default {
 
     &.link-primary {
       color: #0365f2;
-      font-weight: 500;
+      font-weight: 400;
       font-family: "CeraPRO", sans-serif;
+      text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
   }
@@ -569,37 +572,60 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  width: 50% !important;
+  text-align: initial !important;
+  user-select: none !important;
+  line-height: initial;
+  color: initial;
+  font-size: initial;
+  font-family: initial;
 }
 
 .illustration {
   width: 100%;
-  max-width: 32rem;
 
   img {
-    width: 100%;
+    width: 100% !important;
     height: auto;
     border-radius: 0.5rem;
+    display: block;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .signup-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    flex-direction: column;
   }
 
   .signup-left {
     max-width: 100%;
+    width: 100% !important;
   }
 
   .signup-right {
-    display: none;
+    width: 100% !important;
   }
 }
 
 @media screen and (max-width: 768px) {
   .signup-title {
-    font-size: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+    text-align: center !important;
+    margin-bottom: 0 !important;
+    color: #03314b;
+    font-family: CeraPro !important;
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+    font-weight: 700 !important;
+    user-select: text !important;
+
+    .signup-title__desktop {
+      display: none;
+    }
+
+    .signup-title__mobile {
+      display: block;
+    }
   }
 
   .header-left {
@@ -611,7 +637,10 @@ export default {
   }
 
   .auth-main {
-    padding: 2rem 1rem;
+    padding-top: 2rem !important;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    width: 100%;
   }
 }
 </style>

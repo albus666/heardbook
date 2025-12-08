@@ -16,28 +16,7 @@
 
       <!-- 右侧内容插槽 -->
       <template #right>
-        <!-- 手机端 CTA：Start free trial + Log in（登录/注册路由下显示） -->
-        <div
-          v-if="isAuthRoute"
-          class="header__mobile-cta desktop-hide"
-        >
-          <a
-            href="#"
-            class="header__mobile-trial"
-            @click.prevent="openSignUpModal"
-          >
-            {{ primaryCtaText }}
-          </a>
-          <a
-            href="#"
-            class="header__mobile-login"
-            @click.prevent="openLoginModal"
-          >
-            {{ secondaryCtaText }}
-          </a>
-        </div>
-
-        <!-- 右侧主 CTA：Start free trial -->
+        <!-- 右侧主 CTA：Start free trial（桌面端） -->
         <a
           href="#"
           class="header__upgrade desktop-only"
@@ -46,11 +25,29 @@
           {{ primaryCtaText }}
         </a>
 
-        <!-- 登录/注册页：直接显示 Log in 链接（桌面端） -->
+        <!-- 手机端 CTA：Start free trial（移动端） -->
+        <a
+          v-if="isAuthRoute"
+          href="#"
+          class="header__mobile-trial desktop-hide"
+          @click.prevent="openSignUpModal"
+        >
+          {{ primaryCtaText }}
+        </a>
+
+        <!-- 登录/注册页：Log in 链接 -->
         <a
           v-if="isAuthRoute"
           href="#"
           class="header__login-link desktop-only"
+          @click.prevent="openLoginModal"
+        >
+          {{ secondaryCtaText }}
+        </a>
+        <a
+          v-if="isAuthRoute"
+          href="#"
+          class="header__mobile-login desktop-hide"
           @click.prevent="openLoginModal"
         >
           {{ secondaryCtaText }}
@@ -372,6 +369,7 @@ export default {
   cursor: pointer;
   appearance: none;
   user-select: text !important;
+  white-space: nowrap;
 }
 
 .header__mobile-trial:hover {
@@ -383,6 +381,7 @@ export default {
   font-weight: 500;
   text-decoration: none;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .header__mobile-login:hover {
@@ -403,7 +402,20 @@ export default {
     display: none;
   }
   .desktop-hide {
-    display: block;
+    display: flex;
+  }
+
+  .header__mobile-trial {
+    margin-right: 1rem;
+  }
+
+  .header__mobile-login {
+    margin-left: 0;
+  }
+
+  /* 移动端 header__inner 下划线，类似 settings.vue 的 tab 导航 */
+  :deep(.header__inner) {
+    border-bottom: 1px solid #e6e6e6;
   }
 }
 
