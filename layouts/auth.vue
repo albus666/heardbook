@@ -63,42 +63,32 @@
       <Nuxt />
     </main>
 
-    <!-- SignUp Modal -->
-    <SignUpModal
-      :show="showSignUpModal"
-      :initial-mode="signUpModalMode"
-      @close="closeSignUpModal"
+    <!-- Unified Auth Modal (replaces both SignUpModal and LoginModal) -->
+    <AuthModal
+      :show="showAuthModal"
+      :initial-mode="authModalMode"
+      @close="closeAuthModal"
       @mode-change="handleModalModeChange"
       @signup="handleSignup"
+      @login="handleLogin"
       @facebook-signup="handleFacebookSignup"
       @google-signup="handleGoogleSignup"
-      @switch-to-login-modal="switchToLoginModal"
-    />
-
-    <!-- Login Modal -->
-    <LoginModal
-      :show="showLoginModal"
-      @close="closeLoginModal"
-      @login="handleLogin"
       @facebook-login="handleFacebookLogin"
       @google-login="handleGoogleLogin"
       @forgot-password="handleForgotPassword"
-      @switch-to-signup="switchToSignup"
     />
   </div>
 </template>
 
 <script>
 import CommonHeader from '~/components/CommonHeader.vue'
-import SignUpModal from '~/components/SignUpModal.vue'
-import LoginModal from '~/components/LoginModal.vue'
+import AuthModal from '~/components/AuthModal.vue'
 
 export default {
   name: 'AuthLayout',
   components: {
     CommonHeader,
-    SignUpModal,
-    LoginModal
+    AuthModal
   },
 
   computed: {
@@ -161,89 +151,62 @@ export default {
     }
   },
 
-  provide() {
-    return {
-      openLoginModal: this.openLoginModal,
-      openSignUpModal: this.openSignUpModal
-    }
-  },
   data() {
     return {
-      showSignUpModal: false,
-      showLoginModal: false,
-      signUpModalMode: 'signup',
-      isTransitioning: false
+      showAuthModal: false,
+      authModalMode: 'signup' // 'signup' or 'login'
+    }
+  },
+  provide() {
+    // 使用函数形式，确保 this 正确绑定
+    return {
+      openLoginModal: () => {
+        if (this && typeof this.openLoginModal === 'function') {
+          this.openLoginModal()
+        }
+      },
+      openSignUpModal: () => {
+        if (this && typeof this.openSignUpModal === 'function') {
+          this.openSignUpModal()
+        }
+      }
     }
   },
 
 
   methods: {
     openSignUpModal() {
-      if (this) {
-        this.signUpModalMode = 'signup'
-        this.showSignUpModal = true
-      }
+      this.authModalMode = 'signup'
+      this.showAuthModal = true
     },
     openLoginModal() {
-      if (this) {
-        this.showLoginModal = true
-      }
+      this.authModalMode = 'login'
+      this.showAuthModal = true
     },
-    closeLoginModal() {
-      this.showLoginModal = false
-    },
-    closeSignUpModal() {
-      this.showSignUpModal = false
-    },
-    switchToSignup() {
-      // 从 LoginModal 切换到 SignUpModal（signup 模式）
-      // 实现交叉淡入淡出：先显示新模态框，再隐藏旧模态框
-      this.signUpModalMode = 'signup'
-      this.showSignUpModal = true
-      // 延迟关闭旧模态框，实现重叠过渡效果
-      // 使用 requestAnimationFrame 确保在下一帧执行，更流畅
-      this.$nextTick(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            this.showLoginModal = false
-          }, 100) // 约1/3的过渡时间，实现平滑的交叉淡入淡出
-        })
-      })
-    },
-    switchToLoginModal() {
-      // 从 SignUpModal 切换到 LoginModal
-      // 实现交叉淡入淡出：先显示新模态框，再隐藏旧模态框
-      this.showLoginModal = true
-      // 延迟关闭旧模态框，实现重叠过渡效果
-      // 使用 requestAnimationFrame 确保在下一帧执行，更流畅
-      this.$nextTick(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            this.showSignUpModal = false
-          }, 100) // 约1/3的过渡时间，实现平滑的交叉淡入淡出
-        })
-      })
+    closeAuthModal() {
+      this.showAuthModal = false
     },
     handleForgotPassword() {
-      // 关闭登录弹窗
-      this.closeLoginModal()
+      // 关闭模态框
+      this.closeAuthModal()
       // 跳转到忘记密码页面
-      this.$router.push('/en/nc/forgot_password')
+      this.$router.push('/auth/forgot_password')
     },
     handleModalModeChange(mode) {
-      this.signUpModalMode = mode
+      // AuthModal 内部会自动处理模式切换，这里只需要更新状态
+      this.authModalMode = mode
     },
     handleSignup(formData) {
       // 处理注册逻辑
       console.log('注册:', formData)
       // TODO: 调用注册 API
-      this.closeSignUpModal()
+      this.closeAuthModal()
     },
     handleLogin(formData) {
       // 处理登录逻辑
       console.log('登录:', formData)
       // TODO: 调用登录 API
-      this.closeLoginModal()
+      this.closeAuthModal()
     },
     handleFacebookSignup() {
       // 处理 Facebook 注册
@@ -259,13 +222,13 @@ export default {
       // 处理 Facebook 登录
       console.log('Facebook 登录')
       // TODO: 实现 Facebook 登录逻辑
-      this.closeLoginModal()
+      this.closeAuthModal()
     },
     handleGoogleLogin() {
       // 处理 Google 登录
       console.log('Google 登录')
       // TODO: 实现 Google 登录逻辑
-      this.closeLoginModal()
+      this.closeAuthModal()
     }
   }
 }
