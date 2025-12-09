@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 text-midnight flex-shrink-0" fill="none" viewBox="0 0 24 24">
+  <clipPath id="a">
+    <path d="M0 0h24v24H0z"/>
+  </clipPath>
+  <g clip-path="url(#a)">
+    <path d="M24 3.43h-7.44V2.15c0-1.58-1-2.15-1.68-2.15H9.42a2 2 0 00-1.49.57 1.89 1.89 0 00-.49 1.29v1.57H0v11l1.23.12V24h21.46v-9.7l1.31-.17zM8.94 1.84c0-.28.19-.34.48-.34h5.46s.18.11.18.65v1.28H8.94zM1.5 4.93h21v7.88l-7.58.95v-1.57H9.31v1.6L1.5 13zm11.92 8.76v2.61h-2.61v-2.61zm7.77 8.81H2.73v-7.85l6.58.65v2.5h5.61v-2.53l6.27-.78z" fill="currentColor"/>
+  </g>
+</svg>
