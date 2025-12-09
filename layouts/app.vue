@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" @click.prevent="handleLogout">
               <span class="nav-indicator"></span>
               <div class="nav-content">
                 <SidebarIcon name="logout" />
@@ -254,6 +254,19 @@ export default {
     },
     closeSidebar() {
       this.isSidebarOpen = false
+    },
+    handleLogout() {
+      // 清除用户认证信息
+      if (process.client) {
+        localStorage.removeItem('auth_token')
+        localStorage.removeItem('user')
+      }
+      
+      // 关闭侧边栏（移动端）
+      this.closeSidebar()
+      
+      // 使用 replace 跳转，不在历史记录中留下记录，防止通过返回键返回
+      this.$router.replace('/auth/login')
     }
   },
   watch: {
